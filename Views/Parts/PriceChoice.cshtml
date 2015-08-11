@@ -1,0 +1,23 @@
+﻿@using Devq.Sellit.Models
+
+@{
+    var part = (PriceChoicePart) Model.Part;
+
+    var mode = part.PriceMode;
+    var price = part.Price;
+}
+
+@if (mode == PriceMode.ForFree) {
+    
+    @T("For free")
+}
+else if (mode == PriceMode.Fixed) {
+    @T("Price:") @price.GetValueOrDefault().ToString("C")
+}
+else if (mode == PriceMode.From) {
+    @T("From:")
+    @price.GetValueOrDefault().ToString("C")
+}
+else {
+    @T("Open bidding")
+}
