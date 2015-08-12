@@ -1,0 +1,5 @@
+﻿<Placement>
+  <Match DisplayType="Detail">
+    <Place Parts_TermPart_Children="Content:after" />
+  </Match>
+</Placement>

@@ -94,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Parts\PriceChoice.cshtml" />
+    <Content Include="Placement.info" />
+    <Content Include="Views\Parts\TermPart.Children.cshtml" />
+    <Content Include="Views\DefinitionTemplates\ExtraTermPartSettings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -104,6 +107,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Drivers\PriceChoicePartDriver.cs" />
+    <Compile Include="Drivers\TermPartDriver.cs" />
     <Compile Include="Handlers\PriceChoicePartHandler.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\PriceChoicePart.cs" />
@@ -114,6 +118,8 @@
     <Compile Include="Permissions.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="Settings\ExtraTermPartSettings.cs" />
+    <Compile Include="Settings\ExtraTermPartSettingsEvents.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

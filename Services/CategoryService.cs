@@ -1,4 +1,9 @@
-﻿using Orchard.ContentManagement;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Taxonomies.Models;
 using Orchard.Taxonomies.Services;
@@ -16,16 +21,27 @@ namespace Devq.Sellit.Services {
 
         public void EnsureCategoryTaxonomy()
         {
-            var knowledgeTaxonomy = _taxonomyService.GetTaxonomyByName(Constants.CategoryTaxonomyName);
-            if (knowledgeTaxonomy == null)
+            var categoryTaxonomy = _taxonomyService.GetTaxonomyByName(Constants.CategoryTaxonomyName);
+            if (categoryTaxonomy == null)
             {
-                knowledgeTaxonomy = _contentManager.New("Taxonomy").As<TaxonomyPart>();
-                knowledgeTaxonomy.Name = Constants.CategoryTaxonomyName;
-                knowledgeTaxonomy.ContentItem.As<TitlePart>().Title = Constants.CategoryTaxonomyName;
-                _taxonomyService.CreateTermContentType(knowledgeTaxonomy);
-                _contentManager.Create(knowledgeTaxonomy);
-                _contentManager.Publish(knowledgeTaxonomy.ContentItem);
+                // Create the taxonomy
+                categoryTaxonomy = _contentManager.New("Taxonomy").As<TaxonomyPart>();
+                categoryTaxonomy.Name = Constants.CategoryTaxonomyName;
+                categoryTaxonomy.ContentItem.As<TitlePart>().Title = Constants.CategoryTaxonomyName;
+                // Create the term type
+                _taxonomyService.CreateTermContentType(categoryTaxonomy);
+                _contentManager.Create(categoryTaxonomy);
+                _contentManager.Publish(categoryTaxonomy.ContentItem);
             }
+        }
+
+        public IEnumerable<TermPart> GetDirectChildren(TermPart term) {
+            var directChildren = _contentManager
+                .Query<TermPart>()
+                .Join<CommonPartRecord>()
+                .Where(cr => cr.Container == term.Record.ContentItemRecord);
+
+            return directChildren.List();
         }
     }
 }

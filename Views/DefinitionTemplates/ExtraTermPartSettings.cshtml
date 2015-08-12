@@ -1,0 +1,8 @@
+﻿@model Devq.Sellit.Settings.ExtraTermPartSettings
+           
+<fieldset>
+    <div>
+        @Html.CheckBoxFor(m => m.OnlyDirectChildren) <label for="@Html.FieldIdFor(m => m.OnlyDirectChildren)" class="forcheckbox">@T("Show only the direct children terms")</label>
+        <span class="hint">@T("If checked, only the direct children terms of the term are displayed")</span>
+    </div>
+</fieldset>
