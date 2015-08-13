@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Orchard.ContentManagement;
+using Orchard.ContentManagement.Records;
 using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Taxonomies.Models;
@@ -35,13 +33,23 @@ namespace Devq.Sellit.Services {
             }
         }
 
+        public IEnumerable<TermPart> GetTopLevelTerms(string taxonomyName) {
+            var taxonomy = _taxonomyService.GetTaxonomyByName(taxonomyName);
+
+            return GetChildren(taxonomy.Record.ContentItemRecord).List();
+        } 
+
         public IEnumerable<TermPart> GetDirectChildren(TermPart term) {
-            var directChildren = _contentManager
-                .Query<TermPart>()
-                .Join<CommonPartRecord>()
-                .Where(cr => cr.Container == term.Record.ContentItemRecord);
+            var directChildren = GetChildren(term.Record.ContentItemRecord);
 
             return directChildren.List();
         }
+
+        private IContentQuery<TermPart> GetChildren(ContentItemRecord record) {
+            return _contentManager
+                .Query<TermPart>()
+                .Join<CommonPartRecord>()
+                .Where(cr => cr.Container == record);
+        } 
     }
 }

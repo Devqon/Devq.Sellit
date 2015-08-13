@@ -97,6 +97,8 @@
     <Content Include="Placement.info" />
     <Content Include="Views\Parts\TermPart.Children.cshtml" />
     <Content Include="Views\DefinitionTemplates\ExtraTermPartSettings.cshtml" />
+    <Content Include="Views\Parts\LevelTermsWidget.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\LevelTermsWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -106,20 +108,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Drivers\LevelTermsWidgetDriver.cs" />
     <Compile Include="Drivers\PriceChoicePartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
+    <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
     <Compile Include="Handlers\PriceChoicePartHandler.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
     <Compile Include="Models\PriceChoicePart.cs" />
     <Compile Include="Models\PriceChoicePartRecord.cs" />
     <Compile Include="Models\PriceMode.cs" />
     <Compile Include="Models\ProductPart.cs" />
     <Compile Include="Models\ProductPartRecord.cs" />
+    <Compile Include="Models\LevelTermsWidgetPart.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Settings\ExtraTermPartSettings.cs" />
     <Compile Include="Settings\ExtraTermPartSettingsEvents.cs" />
+    <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

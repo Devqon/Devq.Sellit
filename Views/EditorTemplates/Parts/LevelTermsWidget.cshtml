@@ -1,0 +1,13 @@
+﻿@model Devq.Sellit.ViewModels.LevelTermsWidgetViewEditModel
+
+<fieldset>
+    <label>@T("Select a taxonomy")</label>
+    <select id="@Html.FieldIdFor(m => m.Taxonomy)" name="@Html.FieldNameFor(m => m.Taxonomy)">
+        @Html.SelectOption(-1, false, T("Choose a taxonomy ...").ToString())
+        @foreach (var taxonomy in Model.Taxonomies.OrderBy(t => t.Name))
+        {
+            @Html.SelectOption(taxonomy.Name, Model.Taxonomy == taxonomy.Name, taxonomy.Name)
+        }
+    </select>
+    @Html.ValidationMessageFor(m => m.Taxonomy)
+</fieldset>

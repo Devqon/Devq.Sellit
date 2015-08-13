@@ -2,4 +2,7 @@
   <Match DisplayType="Detail">
     <Place Parts_TermPart_Children="Content:after" />
   </Match>
+  
+  <Place Parts_LevelTermsWidget="Content:1" />
+  <Place Parts_LevelTermsWidget_Edit="Content:7" />
 </Placement>

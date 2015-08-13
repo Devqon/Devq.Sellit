@@ -55,5 +55,31 @@ namespace Devq.Sellit
 
             return 1;
         }
+
+        public int UpdateFrom1() {
+            
+            // Level terms widget
+            ContentDefinitionManager.AlterTypeDefinition("LevelTermsWidget", type => type
+                
+                .Creatable()
+
+                .WithPart(typeof(LevelTermsWidgetPart).Name)
+                .WithPart("WidgetPart")
+                .WithPart("CommonPart")
+                .WithSetting("Stereotype", "Widget"));
+
+            return 2;
+        }
+
+        public int UpdateFrom2() {
+
+            SchemaBuilder.CreateTable(typeof (LevelTermsWidgetPartRecord).Name, table => table
+
+                .ContentPartRecord()
+
+                .Column<string>("ForTaxonomy"));
+
+            return 3;
+        }
     }
 }
