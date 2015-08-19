@@ -14,7 +14,6 @@ namespace Devq.Sellit
 
         public static Localizer T { get; set; }
 
-
         static Permissions()
         {
             T = NullLocalizer.Instance;

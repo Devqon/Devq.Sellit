@@ -36,16 +36,22 @@ namespace Devq.Sellit.Services {
         public IEnumerable<TermPart> GetTopLevelTerms(string taxonomyName) {
             var taxonomy = _taxonomyService.GetTaxonomyByName(taxonomyName);
 
-            return GetChildren(taxonomy.Record.ContentItemRecord).List();
+            return GetContainables(taxonomy.Record.ContentItemRecord).List();
+        }
+
+        public IEnumerable<TermPart> GetDirectChildren(int termId) {
+            var term = _taxonomyService.GetTerm(termId);
+
+            return GetDirectChildren(term);
         } 
 
         public IEnumerable<TermPart> GetDirectChildren(TermPart term) {
-            var directChildren = GetChildren(term.Record.ContentItemRecord);
+            var directChildren = GetContainables(term.Record.ContentItemRecord);
 
             return directChildren.List();
         }
 
-        private IContentQuery<TermPart> GetChildren(ContentItemRecord record) {
+        private IContentQuery<TermPart> GetContainables(ContentItemRecord record) {
             return _contentManager
                 .Query<TermPart>()
                 .Join<CommonPartRecord>()

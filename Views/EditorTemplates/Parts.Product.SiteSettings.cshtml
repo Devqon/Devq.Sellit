@@ -1,0 +1,13 @@
+﻿@model Devq.Sellit.Models.ProductSettingsPart
+
+<fieldset>
+    <legend>@T("Products")</legend>
+
+    <div>
+        <label for="productsettings_hideProductDelay">@T("Automatically unpublish products after")</label>
+        @Html.TextBoxFor(m => m.HideProductDelay, new { @class = "text small", type = "number" }) @T("days")
+        @Html.ValidationMessage("HideProductDelay", "*")
+        <span class="hint">@T("Number of days after products are automatically unpublished. Leave to 0 to have them always available.")</span>
+    </div>
+
+</fieldset>

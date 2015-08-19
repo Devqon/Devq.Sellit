@@ -8,5 +8,6 @@ namespace Devq.Sellit.Services
         void EnsureCategoryTaxonomy();
         IEnumerable<TermPart> GetDirectChildren(TermPart term);
         IEnumerable<TermPart> GetTopLevelTerms(string taxonomyName);
+        IEnumerable<TermPart> GetDirectChildren(int termId);
     }
 }

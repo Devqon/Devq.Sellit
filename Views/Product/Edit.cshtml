@@ -1,0 +1,7 @@
+﻿@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPost"), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+    <input name="id" value="@Model.ContentItem.Id" style="display:none;" />
+    
+    @Display(Model)
+}

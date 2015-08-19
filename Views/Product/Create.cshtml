@@ -1,0 +1,10 @@
+﻿@{
+    Layout.Title = T("New Product");
+}
+
+@using (Html.BeginFormAntiForgeryPost(null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+
+    @Display(Model)
+}
