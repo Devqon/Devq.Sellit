@@ -7,4 +7,7 @@
   <Place Parts_LevelTermsWidget_Edit="Content:7" />
 
   <Place Parts_Product_SiteSettings="Content:10"/>
+
+  <Match ContentType="Product">
+  </Match>
 </Placement>

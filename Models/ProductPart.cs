@@ -14,5 +14,10 @@ namespace Devq.Sellit.Models
             get { return Retrieve(r => r.Status); }
             set { Store(r => r.Status, value); }
         }
+
+        public string Category {
+            get { return Record.Category; }
+            set { Record.Category = value; }
+        }
     }
 }

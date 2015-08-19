@@ -35,7 +35,13 @@ namespace Devq.Sellit
                     .OfType("InputField")
                     .WithSetting("InputFieldSettings.Required", "false")
                     .WithSetting("InputFieldSettings.Type", "Url")
-                    .WithSetting("InputFieldSettings.Hint", "Video or website url")));
+                    .WithSetting("InputFieldSettings.Hint", "Video or website url"))
+
+                .WithField("State", field => field
+                    .OfType("EnumerationField")
+                    .WithSetting("EnumerationFieldSettings.Options",
+                        string.Join(Environment.NewLine,
+                            new[] { "New", "As good as new", "Used" }))));
 
             // Product type
             ContentDefinitionManager.AlterTypeDefinition("Product", type => type
@@ -53,14 +59,15 @@ namespace Devq.Sellit
                 // Product part
                 .WithPart(typeof (ProductPart).Name));
 
-            return 1;
-        }
+            // Widget record
+            SchemaBuilder.CreateTable(typeof(LevelTermsWidgetPartRecord).Name, table => table
 
-        public int UpdateFrom1() {
-            
+                .ContentPartRecord()
+                .Column<string>("ForTaxonomy"));
+
             // Level terms widget
             ContentDefinitionManager.AlterTypeDefinition("LevelTermsWidget", type => type
-                
+
                 .Creatable()
 
                 .WithPart(typeof(LevelTermsWidgetPart).Name)
@@ -68,18 +75,20 @@ namespace Devq.Sellit
                 .WithPart("CommonPart")
                 .WithSetting("Stereotype", "Widget"));
 
-            return 2;
+            return 1;
         }
 
-        public int UpdateFrom2() {
+        public int UpdateFrom1() {
 
-            SchemaBuilder.CreateTable(typeof (LevelTermsWidgetPartRecord).Name, table => table
+            SchemaBuilder.CreateTable(typeof (ProductPartRecord).Name,
+                table => table
+                    .ContentPartRecord()
 
-                .ContentPartRecord()
+                    .Column<DateTime>("CreatedUtc")
+                    .Column<string>("Status")
+                    .Column<string>("Category"));
 
-                .Column<string>("ForTaxonomy"));
-
-            return 3;
+            return 2;
         }
     }
 }

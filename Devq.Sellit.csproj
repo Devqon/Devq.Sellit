@@ -117,6 +117,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\EditorTemplates\Fields\TaxonomyField-Product.cshtml" />
     <Content Include="Views\EditorTemplates\Parts.Product.SiteSettings.cshtml" />
+    <Content Include="Views\Product.EditWrapper.cshtml" />
+    <Content Include="Views\Parts\Vehicle.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,12 +131,16 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TaxonomyController.cs" />
+    <Compile Include="ControlWrapper.cs" />
     <Compile Include="Drivers\LevelTermsWidgetDriver.cs" />
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
+    <Compile Include="Handlers\FeaturedProductsWidgetHandler.cs" />
     <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
+    <Compile Include="Handlers\ProductPartHandler.cs" />
     <Compile Include="Handlers\ProductSettingsPartHandler.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\FeaturedProductsWidget.cs" />
     <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
     <Compile Include="Models\ProductPart.cs" />
     <Compile Include="Models\ProductPartRecord.cs" />

@@ -6,5 +6,9 @@ Version: 1.0
 OrchardVersion: 1.0
 Description: Description for the module
 Features:
-    Devq.Sellit:
-        Description: Description for feature Devq.Sellit.
+	Devq.Sellit:
+		Description: Ebay-like features
+		Dependencies: Devq.Bids
+	Devq.FeaturedProducts:
+		Description: Featured products
+		Dependencies: Devq.Sellit
