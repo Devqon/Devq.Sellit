@@ -9,5 +9,15 @@
   <Place Parts_Product_SiteSettings="Content:10"/>
 
   <Match ContentType="Product">
+    <Place Fields_TaxonomyField_Edit="StepOne" />
+    <Place Content_SaveButton="-"/>
+    
+    <Match DisplayType="Detail">
+      <!-- Extension parts -->
+      <Place Parts_Vehicle="Content:5"/>
+    </Match>
   </Match>
+
+  <!-- Edit parts -->
+  <Place Parts_Vehicle_Edit="Content:after"/>
 </Placement>

@@ -99,9 +99,10 @@
       <Name>Orchard.Taxonomies</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Views\Parts\PriceChoice.cshtml" />
+    <Folder Include="Drivers\ProductExtensions\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Placement.info" />
     <Content Include="Views\Parts\TermPart.Children.cshtml" />
     <Content Include="Views\DefinitionTemplates\ExtraTermPartSettings.cshtml" />
@@ -119,7 +120,8 @@
     <Content Include="Views\EditorTemplates\Parts.Product.SiteSettings.cshtml" />
     <Content Include="Views\Product.EditWrapper.cshtml" />
     <Content Include="Views\Parts\Vehicle.cshtml" />
-    <Content Include="Views\EditorTemplates\Parts.cshtml" />
+    <Content Include="Views\EditorTemplates\ProductExtensions\Vehicle.cshtml" />
+    <Content Include="Views\xContent.Edit-Product.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -133,27 +135,36 @@
     <Compile Include="Controllers\TaxonomyController.cs" />
     <Compile Include="ControlWrapper.cs" />
     <Compile Include="Drivers\LevelTermsWidgetDriver.cs" />
+    <Compile Include="Drivers\ProductExtensionPartDriver.cs" />
+    <Compile Include="Drivers\VehiclePartDriver.cs" />
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
     <Compile Include="Handlers\FeaturedProductsWidgetHandler.cs" />
     <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
+    <Compile Include="Handlers\ProductExtensionsHandler.cs" />
     <Compile Include="Handlers\ProductPartHandler.cs" />
     <Compile Include="Handlers\ProductSettingsPartHandler.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\FeaturedProductsWidget.cs" />
     <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
+    <Compile Include="Models\ProductExtension.cs" />
+    <Compile Include="Models\VehiclePart.cs" />
     <Compile Include="Models\ProductPart.cs" />
     <Compile Include="Models\ProductPartRecord.cs" />
     <Compile Include="Models\LevelTermsWidgetPart.cs" />
     <Compile Include="Models\ProductSettingsPart.cs" />
     <Compile Include="Models\ProductStatus.cs" />
     <Compile Include="Permissions.cs" />
+    <Compile Include="ProductExtensionsMigrations.cs" />
     <Compile Include="Routes.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Settings\ExtraTermPartSettings.cs" />
     <Compile Include="Settings\ExtraTermPartSettingsEvents.cs" />
     <Compile Include="EditorFieldShapeProvider.cs" />
+    <Compile Include="ViewModels\EditProductViewModel.cs" />
     <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
   </ItemGroup>
   <PropertyGroup>

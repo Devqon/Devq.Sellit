@@ -1,0 +1,6 @@
+﻿@model Devq.Sellit.Models.VehiclePart
+
+<fieldset class="what">
+    @Html.LabelFor(m => m.Kilometres, T("Number of kilometres"))
+    @Html.TextBoxFor(m => m.Kilometres, new { type = "number" })
+</fieldset>

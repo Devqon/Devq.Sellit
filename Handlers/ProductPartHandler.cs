@@ -12,7 +12,8 @@ namespace Devq.Sellit.Handlers
         public ProductPartHandler(IRepository<ProductPartRecord> repository) {
 
             Filters.Add(StorageFilter.For(repository));
-            OnUpdating<ProductPart>(SetCategory);
+
+            OnUpdated<ProductPart>(SetCategory);
         }
 
         private void SetCategory(UpdateContentContext ctx, ProductPart part) {

@@ -1,10 +1,26 @@
 ﻿@{
     Layout.Title = T("New Product");
+
+    var productPart = Model.ContentItem.ProductPart;
+    var hasCategory = !string.IsNullOrEmpty(productPart.Category);
 }
 
 @using (Html.BeginFormAntiForgeryPost(null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary()
+    if (hasCategory)
+    {
+        @Html.ValidationSummary()
+    
+        @Display(Model)
+    
+        @Html.Hidden("ProductCategory", TempData["ProductCategory"])
 
-    @Display(Model)
+        <input type="submit" name="submit.Create" class="button primaryAction" value="Create" />
+    }
+    else
+    {
+        @Display(Model.StepOne)
+    
+        <input type="submit" name="submit.Category" class="button primaryAction" value="Choose" />
+    }
 }
