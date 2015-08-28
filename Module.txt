@@ -8,7 +8,7 @@ Description: Description for the module
 Features:
 	Devq.Sellit:
 		Description: Ebay-like features
-		Dependencies: Devq.Bids
+		Dependencies: Devq.Bids, Orchard.Taxonomies
 	Devq.FeaturedProducts:
 		Description: Featured products
 		Dependencies: Devq.Sellit

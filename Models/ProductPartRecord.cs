@@ -1,4 +1,5 @@
 ﻿using System;
+using Devq.Sellit.Models.Enums;
 using Orchard.ContentManagement.Records;
 
 namespace Devq.Sellit.Models

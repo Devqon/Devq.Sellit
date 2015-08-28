@@ -1,12 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
-using Devq.Sellit.Models;
+using Devq.Sellit.Services;
+using Devq.Sellit.ViewModels;
 using Orchard;
 using Orchard.ContentManagement;
 using Orchard.Data;
 using Orchard.Localization;
+using Orchard.Mvc;
+using Orchard.Mvc.Html;
 using Orchard.Themes;
-using Orchard.UI.Notify;
 
 namespace Devq.Sellit.Controllers
 {
@@ -15,14 +19,17 @@ namespace Devq.Sellit.Controllers
         private readonly IContentManager _contentManager;
         private readonly ITransactionManager _transactionManager;
         private readonly IOrchardServices _orchardServices;
+        private readonly IProductService _productService;
 
         public ProductController(IContentManager contentManager, 
             ITransactionManager transactionManager, 
-            IOrchardServices orchardServices) {
+            IOrchardServices orchardServices, 
+            IProductService productService) {
 
             _contentManager = contentManager;
             _transactionManager = transactionManager;
             _orchardServices = orchardServices;
+            _productService = productService;
 
             T = NullLocalizer.Instance;
         }
@@ -30,23 +37,8 @@ namespace Devq.Sellit.Controllers
         public Localizer T { get; set; }
 
         [HttpGet]
-        public ActionResult Index(int id) {
-            var contentItem = _contentManager.Get(id);
-
-            // Check if can go through, only if has permissions and the content type is actually a product
-            if (contentItem == null || contentItem.ContentType != Constants.ProductName)
-            {
-                return HttpNotFound();
-            }
-
-            var model = _contentManager.BuildDisplay(contentItem);
-
-            return View((object) model);
-        }
-
-        [HttpGet]
-        public ActionResult Create() {
-
+        public ActionResult Create()
+        {
             // New product
             var product = _contentManager.New(Constants.ProductName);
 
@@ -55,30 +47,54 @@ namespace Devq.Sellit.Controllers
                 return new HttpUnauthorizedResult();
             }
 
-            var model = _contentManager.BuildEditor(product);
+            var categories = _productService.GetCategories();
 
-            return View((object) model);
+            var model = new SelectCategoryViewModel {
+                Categories = categories.ToDictionary(c => c.Name, c => c.DisplayName)
+            };
+
+            return View("ChooseCategory", model);
         }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult CreatePost() {
+        [FormValueRequired("submit.Category")]
+        public ActionResult CreateCategoryPost(SelectCategoryViewModel model) {
 
-            var product = _contentManager.New(Constants.ProductName);
+            var product = _contentManager.New(model.SelectedCategory);
 
             if (!_orchardServices.Authorizer.Authorize(Permissions.AddProduct, product, T("Not allowed to create a product"))) {
                 return new HttpUnauthorizedResult();
             }
 
-            _contentManager.Create(product);
+            if (string.IsNullOrEmpty(model.SelectedCategory)) {
+                return View("ChooseCategory", model);
+            }
+
+            var editor = _contentManager.BuildEditor(product).Category(model.SelectedCategory);
+
+            return View(editor);
+        }
+
+        [HttpPost, ActionName("Create")]
+        [FormValueRequired("submit.Create")]
+        public ActionResult CreatePost(string type) {
+
+            var product = _contentManager.New(type);
+
+            if (!_orchardServices.Authorizer.Authorize(Permissions.AddProduct, product, T("Not allowed to create a product")))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             var model = _contentManager.UpdateEditor(product, this);
+            _contentManager.Create(product);
 
             if (!ModelState.IsValid) {
                 _transactionManager.Cancel();
                 return View(model);
             }
 
-            _orchardServices.Notifier.Information(T("Your {0} has been created", product.TypeDefinition.DisplayName));
-            return RedirectToAction("Index", new {id = product.Id});
+            return Redirect(Url.ItemDisplayUrl(product));
         }
 
         [HttpGet]

@@ -1,0 +1,12 @@
+﻿@model Devq.Sellit.ViewModels.SelectCategoryViewModel
+
+@{
+    Layout.Title = T("New Product");
+}
+
+@using (Html.BeginFormAntiForgeryPost("Create", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.SelectedCategory, Model.Categories.Select(c => new SelectListItem{ Text = c.Value, Value = c.Key }))
+    
+    <input type="submit" class="button primaryAction" name="submit.Category" value="@T("Choose")" />
+}

@@ -9,5 +9,12 @@
   <Place Parts_Product_SiteSettings="Content:10"/>
 
   <Match ContentType="Product">
+    <Place Parts_Autoroute_Edit="-"/>
+    <Place Content_SaveButton="-"/>
+    <Place Fields_TaxonomyField_Edit-Category="-"/>
   </Match>
+
+  <!-- Product extensions -->
+  <Place Parts_Vehicle_Edit="Content:after"/>
+  <Place Parts_Vehicle="Content:5" />
 </Placement>

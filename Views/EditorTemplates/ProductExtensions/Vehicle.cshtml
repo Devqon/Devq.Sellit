@@ -1,0 +1,14 @@
+﻿@model Devq.Sellit.Models.VehiclePart
+
+<fieldset>
+    @Html.LabelFor(m => m.Kilometres)
+    @Html.TextBoxFor(m => m.Kilometres, new { type = "number" })
+</fieldset>
+<fieldset>
+    @Html.LabelFor(m => m.YearOfManufacture)
+    @Html.TextBoxFor(m => m.YearOfManufacture, new { type = "number" })
+</fieldset>
+<fieldset>
+    @Html.LabelFor(m => m.LicensePlate)
+    @Html.TextBoxFor(m => m.LicensePlate, new { @class = "text small" })
+</fieldset>

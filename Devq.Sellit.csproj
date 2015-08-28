@@ -120,6 +120,10 @@
     <Content Include="Views\Product.EditWrapper.cshtml" />
     <Content Include="Views\Parts\Vehicle.cshtml" />
     <Content Include="Views\EditorTemplates\Parts.cshtml" />
+    <Content Include="Views\EditorTemplates\ProductExtensions\Vehicle.cshtml" />
+    <Content Include="Views\ProductAdmin\Index.cshtml" />
+    <Content Include="Views\Product\ChooseCategory.cshtml" />
+    <Content Include="Views\Product.Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,17 +132,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TaxonomyController.cs" />
     <Compile Include="ControlWrapper.cs" />
     <Compile Include="Drivers\LevelTermsWidgetDriver.cs" />
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
+    <Compile Include="Drivers\VehiclePartDriver.cs" />
     <Compile Include="Handlers\FeaturedProductsWidgetHandler.cs" />
     <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
+    <Compile Include="Handlers\ProductExtensionPartsHandler.cs" />
     <Compile Include="Handlers\ProductPartHandler.cs" />
     <Compile Include="Handlers\ProductSettingsPartHandler.cs" />
+    <Compile Include="Helpers\SchemaBuilderExtensions.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\FeaturedProductsWidget.cs" />
     <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
@@ -146,15 +155,20 @@
     <Compile Include="Models\ProductPartRecord.cs" />
     <Compile Include="Models\LevelTermsWidgetPart.cs" />
     <Compile Include="Models\ProductSettingsPart.cs" />
-    <Compile Include="Models\ProductStatus.cs" />
+    <Compile Include="Models\Enums\ProductStatus.cs" />
+    <Compile Include="Models\VehiclePart.cs" />
     <Compile Include="Permissions.cs" />
+    <Compile Include="ProductExtensionsMigrations.cs" />
     <Compile Include="Routes.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Settings\ExtraTermPartSettings.cs" />
     <Compile Include="Settings\ExtraTermPartSettingsEvents.cs" />
     <Compile Include="EditorFieldShapeProvider.cs" />
     <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
+    <Compile Include="ViewModels\SelectCategoryViewModel.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
