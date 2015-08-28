@@ -1,0 +1,30 @@
+﻿@model Devq.Sellit.Models.ExtendedProfilePart
+
+<fieldset>
+    <legend>@T("Extended profile fields")</legend>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.FirstName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LastName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Insertion)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Insertion)
+        @Html.ValidationMessageFor(model => model.Insertion)
+    </div>
+
+</fieldset>

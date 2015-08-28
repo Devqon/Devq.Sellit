@@ -12,8 +12,16 @@
     <Place Parts_Autoroute_Edit="-"/>
     <Place Content_SaveButton="-"/>
     <Place Fields_TaxonomyField_Edit-Category="-"/>
+
+    <Match DisplayType="Detail">
+      <Place Parts_Author="/AsideSecond:before" />
+    </Match>
   </Match>
 
+  <!-- Extended profile -->
+  <Place Parts_ExtendedProfile_Edit="Content:5" />
+  <Place Parts_ExtendedProfile="Content:5" />
+  
   <!-- Product extensions -->
   <Place Parts_Vehicle_Edit="Content:after"/>
   <Place Parts_Vehicle="Content:5" />

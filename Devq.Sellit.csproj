@@ -94,6 +94,14 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Devq.Bids\Devq.Bids.csproj">
+      <Project>{4f46495b-5b36-4f18-b43f-8952badfb088}</Project>
+      <Name>Devq.Bids</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
+      <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
+      <Name>Orchard.Projections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Taxonomies\Orchard.Taxonomies.csproj">
       <Project>{e649ea64-d213-461b-87f7-d67035801443}</Project>
       <Name>Orchard.Taxonomies</Name>
@@ -119,11 +127,15 @@
     <Content Include="Views\EditorTemplates\Parts.Product.SiteSettings.cshtml" />
     <Content Include="Views\Product.EditWrapper.cshtml" />
     <Content Include="Views\Parts\Vehicle.cshtml" />
-    <Content Include="Views\EditorTemplates\Parts.cshtml" />
     <Content Include="Views\EditorTemplates\ProductExtensions\Vehicle.cshtml" />
     <Content Include="Views\ProductAdmin\Index.cshtml" />
     <Content Include="Views\Product\ChooseCategory.cshtml" />
     <Content Include="Views\Product.Edit.cshtml" />
+    <Content Include="Views\Product.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts.ExtendedProfile.cshtml" />
+    <Content Include="Views\Parts\ExtendedProfile.cshtml" />
+    <Content Include="Views\Parts\Author.cshtml" />
+    <Content Include="Views\DefinitionTemplates\ProductPartSettings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -138,17 +150,21 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TaxonomyController.cs" />
     <Compile Include="ControlWrapper.cs" />
+    <Compile Include="Drivers\ExtendedProfilePartDriver.cs" />
     <Compile Include="Drivers\LevelTermsWidgetDriver.cs" />
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
     <Compile Include="Drivers\VehiclePartDriver.cs" />
+    <Compile Include="Handlers\ExtendedProfilePartHandler.cs" />
     <Compile Include="Handlers\FeaturedProductsWidgetHandler.cs" />
     <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
     <Compile Include="Handlers\ProductExtensionPartsHandler.cs" />
     <Compile Include="Handlers\ProductPartHandler.cs" />
     <Compile Include="Handlers\ProductSettingsPartHandler.cs" />
-    <Compile Include="Helpers\SchemaBuilderExtensions.cs" />
+    <Compile Include="Helpers\ProductMigrationExtensions.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\ClothPart.cs" />
+    <Compile Include="Models\ExtendedProfilePart.cs" />
     <Compile Include="Models\FeaturedProductsWidget.cs" />
     <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
     <Compile Include="Models\ProductPart.cs" />
@@ -159,6 +175,7 @@
     <Compile Include="Models\VehiclePart.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="ProductExtensionsMigrations.cs" />
+    <Compile Include="ProductPartFilter.cs" />
     <Compile Include="Routes.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
@@ -167,6 +184,8 @@
     <Compile Include="Settings\ExtraTermPartSettings.cs" />
     <Compile Include="Settings\ExtraTermPartSettingsEvents.cs" />
     <Compile Include="EditorFieldShapeProvider.cs" />
+    <Compile Include="Settings\ProductPartSettings.cs" />
+    <Compile Include="Settings\ProductPartSettingsEvents.cs" />
     <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
     <Compile Include="ViewModels\SelectCategoryViewModel.cs" />
   </ItemGroup>

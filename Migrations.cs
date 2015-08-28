@@ -90,5 +90,35 @@ namespace Devq.Sellit
 
             return 2;
         }
+
+        public int UpdateFrom2() {
+            
+            // Extend user registration
+            SchemaBuilder.CreateTable(typeof (ExtendedProfilePartRecord).Name,
+                table => table
+                    .ContentPartRecord()
+
+                    .Column<string>("FirstName")
+                    .Column<string>("LastName")
+                    .Column<string>("Insertion"));
+
+            ContentDefinitionManager.AlterTypeDefinition("User",
+                type => type
+                    .WithPart("ProfilePart")
+                    .WithPart("ExtendedProfilePart"));
+
+            return 3;
+        }
+
+        public int UpdateFrom3() {
+
+            // Profile picture
+            ContentDefinitionManager.AlterPartDefinition(typeof(ExtendedProfilePart).Name,
+                part => part
+                    .WithField("Image", field => field
+                        .OfType("ImageField")));
+
+            return 4;
+        }
     }
 }

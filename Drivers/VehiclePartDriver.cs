@@ -1,15 +1,16 @@
 ﻿using Devq.Sellit.Models;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
+using Orchard.Environment.Extensions;
 
 namespace Devq.Sellit.Drivers
 {
+    [OrchardFeature("Devq.ProductExtensions")]
     public class VehiclePartDriver : ContentPartDriver<VehiclePart>
     {
-
         protected override DriverResult Display(VehiclePart part, string displayType, dynamic shapeHelper)
         {
-            return ContentShape("Parts_Vehicle", () => shapeHelper.Parts_Vehicle());
+            return ContentShape("Parts_Vehicle", () => shapeHelper.Parts_Vehicle(Model: part));
         }
 
         protected override DriverResult Editor(VehiclePart part, dynamic shapeHelper)

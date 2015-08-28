@@ -1,12 +1,12 @@
-﻿using Devq.Sellit.Helpers;
-using Devq.Sellit.Models;
-using Orchard.ContentManagement.MetaData;
+﻿using Devq.Sellit.Models;
 using Orchard.Data.Migration;
+using Orchard.Environment.Extensions;
 
 namespace Devq.Sellit
 {
-    public class ProductExtensionsMigrations : DataMigrationImpl
-    {
+    [OrchardFeature("Devq.ProductExtensions")]
+    public class ProductExtensionsMigrations : DataMigrationImpl {
+
         public int Create() {
 
             SchemaBuilder.CreateTable(typeof (VehiclePartRecord).Name,
@@ -18,16 +18,6 @@ namespace Devq.Sellit
                     .Column<string>("LicensePlate"));
 
             return 1;
-        }
-
-        public int UpdateFrom1() {
-            
-            // Car
-            ContentDefinitionManager.AlterTypeDefinition("Car",
-                type => type
-                    .ProductExtension<VehiclePart>());
-
-            return 2;
         }
     }
 }

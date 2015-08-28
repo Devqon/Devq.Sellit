@@ -1,0 +1,37 @@
+﻿@using Orchard.Taxonomies.Helpers
+@model Devq.Sellit.Settings.ProductPartSettings
+           
+@{
+    Style.Include("admin-taxonomy.css");
+    Script.Require("jQuery");
+    Script.Include("~/Themes/TheAdmin/scripts/admin.js").AtFoot();
+    Script.Include("admin-taxonomy-expando.js").AtFoot();
+}
+
+<fieldset>
+    <div>
+        @Html.LabelFor(m => m.PostCosts, T("Costs to post an item in this category"))
+        @Html.TextBoxFor(m => m.PostCosts)
+    </div>
+</fieldset>
+
+
+<fieldset class="taxonomy-wrapper" data-name-prefix="@Html.FieldNameFor(m => m)" data-id-prefix="@Html.FieldIdFor(m => m)">
+    <fieldset>@T("Category")</fieldset>
+    <div class="expando">
+        <ul class="terms">
+            @foreach (var entry in Model.Categories)
+            {
+                <li>
+                    @* Tabs for levels *@ @for (var i = 1; i <= entry.GetLevels(); i++)
+                                          { <span class="gap">&nbsp;</span> }
+                    @{
+                        var disabled = !entry.Selectable;
+                    }
+                    <input @if (disabled) { <text> disabled="disabled" </text>  } type="radio" value="@entry.Id" @if (entry.Id.ToString() == Model.CategoryId) { <text> checked="checked" </text>  } id="@Html.FieldIdFor(m => entry.Id)" name="@Html.FieldNameFor(m => m.CategoryId)" data-term="@entry.Name.ToLower()" />
+                    <label class="forcheckbox" for="@Html.FieldIdFor(m => entry.Id)">@entry.Name</label>
+                </li>
+            }
+        </ul>
+    </div>
+</fieldset>

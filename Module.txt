@@ -3,12 +3,20 @@ AntiForgery: enabled
 Author: Orchardizer
 Website: http://orchardproject.net
 Version: 1.0
-OrchardVersion: 1.0
+OrchardVersion: 1.9
 Description: Description for the module
 Features:
 	Devq.Sellit:
+		Name: Sellit
 		Description: Ebay-like features
 		Dependencies: Devq.Bids, Orchard.Taxonomies
+		Category: Commerce
+	Devq.ProductExtensions:
+		Name: Product Extensions
+		Description: Extend products with specific parts
+		Dependencies: Devq.Sellit
+		Category: Commerce
 	Devq.FeaturedProducts:
 		Description: Featured products
 		Dependencies: Devq.Sellit
+		Category: Commerce
