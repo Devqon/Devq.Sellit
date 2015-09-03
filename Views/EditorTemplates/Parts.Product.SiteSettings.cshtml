@@ -4,10 +4,16 @@
     <legend>@T("Products")</legend>
 
     <div>
-        <label for="productsettings_hideProductDelay">@T("Automatically unpublish products after")</label>
+        <label for="@Html.FieldIdFor(m => m.HideProductDelay)">@T("Automatically unpublish products after")</label>
         @Html.TextBoxFor(m => m.HideProductDelay, new { @class = "text small", type = "number" }) @T("days")
         @Html.ValidationMessage("HideProductDelay", "*")
         <span class="hint">@T("Number of days after products are automatically unpublished. Leave to 0 to have them always available.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.ProductSelectSize)">@T("Size of the products dropdown")</label>
+        @Html.TextBoxFor(m => m.ProductSelectSize, new { @class = "text small", type = "number" })
+        @Html.ValidationMessage("ProductSelectSize", "*")
+        <span class="hint">@T("Size of the products dropdown when adding a new product.")</span>
     </div>
 
 </fieldset>

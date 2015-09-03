@@ -1,0 +1,11 @@
+﻿@model Devq.Sellit.ViewModels.CreateProductTypeViewModel
+           
+@using (Html.BeginFormAntiForgeryPost(null, FormMethod.Post)) {
+    <fieldset>
+        <div>
+            @Html.LabelFor(m => m.DisplayName)
+            @Html.TextBoxFor(m => m.DisplayName)
+        </div>
+        <input type="submit" value="@T("Create")" />
+    </fieldset>
+}

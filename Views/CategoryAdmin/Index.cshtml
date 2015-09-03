@@ -1,0 +1,11 @@
+﻿@model Devq.Sellit.ViewModels.CategoryAdminIndexViewModel
+         
+@Html.ActionLink(T("Create").ToString(), "Create")
+  
+<ul>
+    @foreach (var category in Model.Categories) {
+        <li>@category.DisplayName - @Html.ActionLink(T("Edit").Text, "Edit", "Admin", new { Area = "Orchard.ContentTypes", id = category.Name }, null)</li>
+    }
+</ul>
+
+@Display(Model.Pager)

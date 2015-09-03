@@ -98,6 +98,10 @@
       <Project>{4f46495b-5b36-4f18-b43f-8952badfb088}</Project>
       <Name>Devq.Bids</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.ContentTypes\Orchard.ContentTypes.csproj">
+      <Project>{0e7646e8-fe8f-43c1-8799-d97860925ec4}</Project>
+      <Name>Orchard.ContentTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
       <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
       <Name>Orchard.Projections</Name>
@@ -128,7 +132,6 @@
     <Content Include="Views\Product.EditWrapper.cshtml" />
     <Content Include="Views\Parts\Vehicle.cshtml" />
     <Content Include="Views\EditorTemplates\ProductExtensions\Vehicle.cshtml" />
-    <Content Include="Views\ProductAdmin\Index.cshtml" />
     <Content Include="Views\Product\ChooseCategory.cshtml" />
     <Content Include="Views\Product.Edit.cshtml" />
     <Content Include="Views\Product.cshtml" />
@@ -136,6 +139,10 @@
     <Content Include="Views\Parts\ExtendedProfile.cshtml" />
     <Content Include="Views\Parts\Author.cshtml" />
     <Content Include="Views\DefinitionTemplates\ProductPartSettings.cshtml" />
+    <Content Include="Views\CategoryAdmin\Index.cshtml" />
+    <Content Include="Views\CategoryAdmin\Create.cshtml" />
+    <Content Include="Views\CascadingCategory.cshtml" />
+    <Content Include="Views\ProductAdmin\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,6 +153,7 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\CategoryAdminController.cs" />
     <Compile Include="Controllers\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TaxonomyController.cs" />
@@ -155,6 +163,7 @@
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
     <Compile Include="Drivers\VehiclePartDriver.cs" />
+    <Compile Include="Events\ProductTypeEditorEvents.cs" />
     <Compile Include="Handlers\ExtendedProfilePartHandler.cs" />
     <Compile Include="Handlers\FeaturedProductsWidgetHandler.cs" />
     <Compile Include="Handlers\LevelTermsWidgetPartHandler.cs" />
@@ -164,6 +173,7 @@
     <Compile Include="Helpers\ProductMigrationExtensions.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\ClothPart.cs" />
+    <Compile Include="Models\Enums\ProductState.cs" />
     <Compile Include="Models\ExtendedProfilePart.cs" />
     <Compile Include="Models\FeaturedProductsWidget.cs" />
     <Compile Include="Models\LevelTermsWidgetPartRecord.cs" />
@@ -186,8 +196,10 @@
     <Compile Include="EditorFieldShapeProvider.cs" />
     <Compile Include="Settings\ProductPartSettings.cs" />
     <Compile Include="Settings\ProductPartSettingsEvents.cs" />
+    <Compile Include="ViewModels\CreateProductTypeViewModel.cs" />
     <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
     <Compile Include="ViewModels\SelectCategoryViewModel.cs" />
+    <Compile Include="ViewModels\CategoryAdminIndexViewModel.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

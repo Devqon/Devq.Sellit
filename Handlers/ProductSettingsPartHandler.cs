@@ -13,7 +13,7 @@ namespace Devq.Sellit.Handlers
             T = NullLocalizer.Instance;
 
             Filters.Add(new ActivatingFilter<ProductSettingsPart>("Site"));
-            Filters.Add(new TemplateFilterForPart<ProductSettingsPart>("ProductSettings", "Parts.Product.SiteSettings", "Products"));
+            Filters.Add(new TemplateFilterForPart<ProductSettingsPart>("ProductSettings", "Parts.Product.SiteSettings", "Sellit"));
         }
 
         protected override void GetItemMetadata(GetContentItemMetadataContext context)
@@ -22,7 +22,7 @@ namespace Devq.Sellit.Handlers
                 return;
 
             base.GetItemMetadata(context);
-            context.Metadata.EditorGroupInfo.Add(new GroupInfo(T("Products")));
+            context.Metadata.EditorGroupInfo.Add(new GroupInfo(T("Sellit")));
         }
     }
 }

@@ -5,6 +5,7 @@ using Orchard.ContentManagement;
 using Orchard.ContentManagement.MetaData;
 using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.Core.Contents.Extensions;
+using Orchard.Utility.Extensions;
 
 namespace Devq.Sellit.Helpers
 {
@@ -14,8 +15,9 @@ namespace Devq.Sellit.Helpers
         /// Build the type with common product parts
         /// </summary>
         /// <param name="builder"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
-        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder) {
+        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder, string category = null) {
 
             builder
 
@@ -26,7 +28,11 @@ namespace Devq.Sellit.Helpers
                 .WithSetting("Stereotype", Constants.ProductName)
 
                 // Product
-                .WithPart(typeof (ProductPart).Name)
+                .WithPart(typeof (ProductPart).Name, part => {
+                    if (!string.IsNullOrEmpty(category)) {
+                        part.WithSetting("ProductPartSettings.CategoryId", category);
+                    }
+                })
 
                 // Bids
                 .WithPart(typeof (BidsPart).Name)
@@ -34,7 +40,9 @@ namespace Devq.Sellit.Helpers
                 // Common
                 .WithPart("TitlePart")
                 .WithPart("BodyPart")
-                .WithPart("CommonPart")
+                .WithPart("CommonPart", part => part
+                    // Do not edit owner
+                    .WithSetting("OwnerEditorSettings.ShowOwnerEditor", "false"))
 
                 // Autoroute
                 .WithPart("AutoroutePart", part => part
@@ -67,10 +75,11 @@ namespace Devq.Sellit.Helpers
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="extraPart"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
-        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder, string extraPart) {
+        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder, string extraPart, string category = null) {
 
-            return builder.ProductExtension(new List<string> {extraPart});
+            return builder.ProductExtension(new List<string> {extraPart}, category);
         }
 
         /// <summary>
@@ -78,13 +87,14 @@ namespace Devq.Sellit.Helpers
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="extraParts"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
-        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder, List<string> extraParts) {
+        public static ContentTypeDefinitionBuilder ProductExtension(this ContentTypeDefinitionBuilder builder, List<string> extraParts, string category = null) {
 
             builder
 
                 // All common extensions
-                .ProductExtension();
+                .ProductExtension(category);
 
             // Add extra parts
             foreach (var extraPart in extraParts) {
@@ -100,12 +110,14 @@ namespace Devq.Sellit.Helpers
         /// <param name="cdm"></param>
         /// <param name="type"></param>
         /// <param name="extraParts"></param>
-        public static void CreateProductType(this IContentDefinitionManager cdm, string type, List<string> extraParts = null)
+        /// <param name="category"></param>
+        public static void CreateProductType(this IContentDefinitionManager cdm, string type, List<string> extraParts = null, string category = null)
         {
             // Create type and attach parts
-            cdm.AlterTypeDefinition(type,
+            cdm.AlterTypeDefinition(type.ToSafeName(),
                 builder => builder
-                    .ProductExtension(extraParts ?? new List<string>()));
+                    .ProductExtension(extraParts ?? new List<string>(), category)
+                    .DisplayedAs(type));
         }
 
         /// <summary>
@@ -114,10 +126,11 @@ namespace Devq.Sellit.Helpers
         /// <param name="cdm"></param>
         /// <param name="types"></param>
         /// <param name="extraParts"></param>
-        public static void CreateProductTypes(this IContentDefinitionManager cdm, string[] types, List<string> extraParts = null) {
+        /// <param name="category"></param>
+        public static void CreateProductTypes(this IContentDefinitionManager cdm, string[] types, List<string> extraParts = null, string category = null) {
 
             foreach (var type in types) {
-                cdm.CreateProductType(type, extraParts);
+                cdm.CreateProductType(type, extraParts, category);
             }
         }
 

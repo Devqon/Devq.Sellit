@@ -1,0 +1,6 @@
+﻿@{
+    var categories = (Dictionary<string, string>) Model.Categories;
+    var id = Model.Id;
+}
+
+@Html.DropDownList("category", categories.Select(c => new SelectListItem { Text = c.Value, Value = c.Key }), new { id = id, size = 10 })

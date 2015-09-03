@@ -11,6 +11,7 @@ using Orchard.Localization;
 using Orchard.Mvc;
 using Orchard.Mvc.Html;
 using Orchard.Themes;
+using Orchard.UI.Notify;
 
 namespace Devq.Sellit.Controllers
 {
@@ -20,16 +21,19 @@ namespace Devq.Sellit.Controllers
         private readonly ITransactionManager _transactionManager;
         private readonly IOrchardServices _orchardServices;
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
         public ProductController(IContentManager contentManager, 
             ITransactionManager transactionManager, 
             IOrchardServices orchardServices, 
-            IProductService productService) {
+            IProductService productService, 
+            ICategoryService categoryService) {
 
             _contentManager = contentManager;
             _transactionManager = transactionManager;
             _orchardServices = orchardServices;
             _productService = productService;
+            _categoryService = categoryService;
 
             T = NullLocalizer.Instance;
         }
@@ -39,18 +43,17 @@ namespace Devq.Sellit.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            // New product
-            var product = _contentManager.New(Constants.ProductName);
-
-            if (!_orchardServices.Authorizer.Authorize(Permissions.AddProduct, product, T("Not allowed to create a product")))
+            if (!_orchardServices.Authorizer.Authorize(Permissions.AddProduct, T("Not allowed to create a product")))
             {
                 return new HttpUnauthorizedResult();
             }
 
-            var categories = _productService.GetCategories();
+            var categories = _categoryService
+                .GetTopLevelTerms(Constants.CategoryTaxonomyName)
+                .OrderBy(c => c.Name);
 
             var model = new SelectCategoryViewModel {
-                Categories = categories.ToDictionary(c => c.Name, c => c.DisplayName)
+                Categories = categories.ToDictionary(c => c.Id, c => c.Name)
             };
 
             return View("ChooseCategory", model);
@@ -60,7 +63,12 @@ namespace Devq.Sellit.Controllers
         [FormValueRequired("submit.Category")]
         public ActionResult CreateCategoryPost(SelectCategoryViewModel model) {
 
-            var product = _contentManager.New(model.SelectedCategory);
+            var type = _productService.GetTypeByCategory(model.SelectedCategory);
+            if (type == null) {
+                _orchardServices.Notifier.Error(T("Something went wrong.., type with id {0} does not exist", model.SelectedCategory));
+                return RedirectToAction("Create");
+            }
+            var product = _contentManager.New(type.Name);
 
             if (!_orchardServices.Authorizer.Authorize(Permissions.AddProduct, product, T("Not allowed to create a product"))) {
                 return new HttpUnauthorizedResult();
@@ -70,7 +78,7 @@ namespace Devq.Sellit.Controllers
                 return View("ChooseCategory", model);
             }
 
-            var editor = _contentManager.BuildEditor(product).Category(model.SelectedCategory);
+            var editor = _contentManager.BuildEditor(product).Category(type.DisplayName);
 
             return View(editor);
         }

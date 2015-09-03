@@ -40,12 +40,18 @@ namespace Devq.Sellit
                     .Add(subItem => subItem
                         .Caption(T("Products"))
                         .Position("2.1")
-                        .Action("Index", "ProductAdmin", new { area = "Devq.Sellit" }))
+                        .Action("List", "ProductAdmin", new { area = "Devq.Sellit" }))
+
+                    // Categories
+                    .Add(tab => tab
+                        .Caption(T("Categories"))
+                        .Position("2.5")
+                        .Action("Index", "CategoryAdmin", new { area = "Devq.Sellit" }))
 
                     // "Customers"
                     .Add(subItem => subItem
                         .Caption(T("Customers"))
-                        .Position("2.2")
+                        .Position("2.8")
                         .Action("Index", "CustomerAdmin", new { area = "Devq.Sellit" }))
                 );
         }

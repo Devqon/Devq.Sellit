@@ -9,11 +9,13 @@
   <Place Parts_Product_SiteSettings="Content:10"/>
 
   <Match ContentType="Product">
-    <Place Parts_Autoroute_Edit="-"/>
+    <!-- Use custom save buttons -->
     <Place Content_SaveButton="-"/>
+    <!-- Disable category editing -->
     <Place Fields_TaxonomyField_Edit-Category="-"/>
 
     <Match DisplayType="Detail">
+      <!-- Place author in aside -->
       <Place Parts_Author="/AsideSecond:before" />
     </Match>
   </Match>

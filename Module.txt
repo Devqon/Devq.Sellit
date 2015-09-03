@@ -9,7 +9,7 @@ Features:
 	Devq.Sellit:
 		Name: Sellit
 		Description: Ebay-like features
-		Dependencies: Devq.Bids, Orchard.Taxonomies
+		Dependencies: Devq.Bids, Orchard.Taxonomies, Orchard.ContentTypes
 		Category: Commerce
 	Devq.ProductExtensions:
 		Name: Product Extensions

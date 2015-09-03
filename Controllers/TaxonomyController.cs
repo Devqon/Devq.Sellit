@@ -21,8 +21,8 @@ namespace Devq.Sellit.Controllers
             var children = _categoryService.GetDirectChildren(id);
 
             return Json(new {
-                terms = children.Select(t => new {t.Id, t.Name})
-            });
+                terms = children.Select(t => new {t.Id, t.Name, t.Selectable})
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

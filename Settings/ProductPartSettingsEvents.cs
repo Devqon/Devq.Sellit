@@ -40,8 +40,8 @@ namespace Devq.Sellit.Settings
             var settings = new ProductPartSettings();
 
             updateModel.TryUpdateModel(settings, typeof (ProductPartSettings).Name, null, null);
-            builder.WithSetting("PostCosts", settings.PostCosts.ToString());
-            builder.WithSetting("CategoryId", settings.CategoryId);
+            builder.WithSetting("ProductPartSettings.PostCosts", settings.PostCosts.ToString());
+            builder.WithSetting("ProductPartSettings.CategoryId", settings.CategoryId);
 
             yield return DefinitionTemplate(settings);
         }

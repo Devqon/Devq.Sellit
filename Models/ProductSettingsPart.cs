@@ -10,5 +10,10 @@ namespace Devq.Sellit.Models
             get { return this.Retrieve(r => r.HideProductDelay); }
             set { this.Store(r => r.HideProductDelay, value); }
         }
+
+        public int ProductSelectSize {
+            get { return this.Retrieve(r => r.ProductSelectSize); }
+            set { this.Store(r => r.ProductSelectSize, value); }
+        }
     }
 }

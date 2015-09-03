@@ -9,6 +9,7 @@ namespace Devq.Sellit
     {
         public static readonly Permission AddProduct = new Permission { Name = "AddProduct" };
         public static readonly Permission ManageProducts = new Permission { Name = "ManageProducts" };
+        public static readonly Permission ManageProductTypes = new Permission { Name = "ManageProductTypes" };
 
         public virtual Feature Feature { get; set; }
 
@@ -20,6 +21,7 @@ namespace Devq.Sellit
 
             AddProduct.Description = T("Place new advertisements.").Text;
             ManageProducts.Description = T("Manage advertisements.").Text;
+            ManageProductTypes.Description = T("Manage product categories.").Text;
         }
 
 
@@ -28,6 +30,7 @@ namespace Devq.Sellit
             return new[] {
                 AddProduct,
                 ManageProducts,
+                ManageProductTypes
             };
         }
 
@@ -36,11 +39,11 @@ namespace Devq.Sellit
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[] {ManageProducts, AddProduct}
+                    Permissions = new[] {ManageProducts, AddProduct, ManageProductTypes}
                 },
                 new PermissionStereotype {
                     Name = "Anonymous",
-                    Permissions = new[] {AddProduct}
+                    Permissions = null
                 },
                 new PermissionStereotype {
                     Name = "Authenticated",
@@ -52,7 +55,7 @@ namespace Devq.Sellit
                 },
                 new PermissionStereotype {
                     Name = "Moderator",
-                    Permissions = new[] {ManageProducts, AddProduct}
+                    Permissions = new[] {ManageProducts, AddProduct, ManageProductTypes}
                 },
                 new PermissionStereotype {
                     Name = "Author",

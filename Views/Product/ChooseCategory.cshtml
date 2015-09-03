@@ -1,12 +1,73 @@
-﻿@model Devq.Sellit.ViewModels.SelectCategoryViewModel
+﻿@using Devq.Sellit.Models
+@using Orchard.ContentManagement
+@model Devq.Sellit.ViewModels.SelectCategoryViewModel
 
 @{
     Layout.Title = T("New Product");
+    var settings = WorkContext.CurrentSite.As<ProductSettingsPart>();
+    var size = settings.ProductSelectSize;
 }
 
 @using (Html.BeginFormAntiForgeryPost("Create", FormMethod.Post))
 {
-    @Html.DropDownListFor(m => m.SelectedCategory, Model.Categories.Select(c => new SelectListItem{ Text = c.Value, Value = c.Key }))
+    <div class="dropdowns">
+        <select class="ddl_cascade" data-ddl="1" size="@size">
+            @foreach (var cat in Model.Categories)
+            {
+                <option value="@cat.Key" data-selectable="false">@cat.Value</option>
+            }
+        </select>
+    </div>
+    @Html.HiddenFor(m => m.SelectedCategory, new { id = "selectedCategory" })
     
-    <input type="submit" class="button primaryAction" name="submit.Category" value="@T("Choose")" />
+    <input type="submit" id="chooseCategory" disabled="disabled" class="button primaryAction" name="submit.Category" value="@T("Choose")" />
+}
+
+@using (Script.Foot()) {
+    <script>
+
+        $(function() {
+
+            // TODO: refactor quick js
+            $(".dropdowns").on("change", ".ddl_cascade", function() {
+                var self = $(this);
+                var value = self.val();
+                var ddl = parseInt(self.data("ddl")); // dropdown number
+                if (value) {
+                    var selectable = !!self.find(":selected").data("selectable");
+                    if (selectable) {
+                        $("#selectedCategory").val(value);
+                        $("#chooseCategory").prop("disabled", false);
+                    } else {
+                        $("#selectedCategory").val("");
+                        $("#chooseCategory").prop("disabled", true);
+                    }
+
+                    $(".ddl_cascade").filter(function() {
+                        return parseInt($(this).data("ddl")) > ddl;
+                    }).remove();
+
+                    var url = "@Url.Action("GetChildren", "Taxonomy")" + "/" + value;
+                    $.get(url, function(data) {
+                        if (data && data.terms && data.terms.length) {
+                            var terms = data.terms;
+                            var $select = $("<select class=\"ddl_cascade\" size=\"@size\" data-ddl=\"" + (ddl + 1) + "\"/>");
+                            for (var i = 0; i < terms.length; i++) {
+                                $select.append("<option value=\"" +
+                                    terms[i].Id +
+                                    "\" data-selectable=\"" +
+                                    terms[i].Selectable +
+                                    "\">" +
+                                    terms[i].Name +
+                                    "</option>");
+                            }
+                            $(".dropdowns").append($select);
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
 }
