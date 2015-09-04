@@ -5,9 +5,8 @@
   
   <Place Parts_LevelTermsWidget="Content:1" />
   <Place Parts_LevelTermsWidget_Edit="Content:7" />
-
-  <Place Parts_Product_SiteSettings="Content:10"/>
-
+  <Place Parts_FeaturedProductsWidget="Content:1" />
+  
   <Match ContentType="Product">
     <!-- Use custom save buttons -->
     <Place Content_SaveButton="-"/>
@@ -17,6 +16,18 @@
     <Match DisplayType="Detail">
       <!-- Place author in aside -->
       <Place Parts_Author="/AsideSecond:before" />
+    </Match>
+  </Match>
+
+  <!-- Featured products -->
+  <Place Parts_FeaturedProduct="Content:3" />
+  <Match ContentType="FeaturedProduct">
+    <Match DisplayType="Detail">
+      <Place Parts_BidForm="Content:after" />
+      <Place Parts_ListOfBids="Content:after" />
+    </Match>
+    <Match DisplayType="SummaryAdmin">
+      <Place Parts_ListOfBids="Content:after" />
     </Match>
   </Match>
 

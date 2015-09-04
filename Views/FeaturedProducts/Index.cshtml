@@ -1,0 +1,61 @@
+﻿@using Devq.Sellit.Helpers
+
+@model Devq.Sellit.ViewModels.FeaturedProductsIndexViewModel
+
+@{
+    Layout.Title = T("Featured products");
+    var featuredProducts = Model.FeaturedProducts;
+
+    Script.Require("jQuery");
+    Script.Include("jquery.countdown.js", "jquery.countdown.min.js");
+}
+
+<div>
+    <h1>@T("Bid on featured products for {0}", Model.ForDate.ToString("dd-MM"))</h1>
+    <span id="clock"></span>
+    <div id="div-ticker">
+        <span>@T("Remaining time"): </span>
+        <div id="ticker"></div>
+    </div>
+
+</div>
+
+@foreach (var fp in featuredProducts)
+{
+    @Display(fp)
+}
+
+@using (Script.Foot())
+{
+
+    <script>
+
+        (function ($) {
+
+            $(function () {
+
+                var endLimit = new Date(@Model.TimeLimit.ToJavaScriptMilliseconds());
+
+                $("#ticker")
+                    .countdown(endLimit)
+                    .on("update.countdown", function(event) {
+                        var format = '%-H hour%!H %-M minute%!M %-S second%!S';
+                        if(event.offset.days > 0) {
+                            format = '%-d day%!d ' + format;
+                        }
+                        if(event.offset.weeks > 0) {
+                            format = '%-w week%!w ' + format;
+                        }
+                        $(this).html(event.strftime(format));
+                    })
+                    .on("finish.countdown", function(event) {
+                        $(".bid-form").hide();
+                    });
+
+            });
+
+        })(jQuery);
+
+    </script>
+
+}

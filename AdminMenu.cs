@@ -42,7 +42,7 @@ namespace Devq.Sellit
                         .Position("2.1")
                         .Action("List", "ProductAdmin", new { area = "Devq.Sellit" }))
 
-                    // Categories
+                    // "Categories"
                     .Add(tab => tab
                         .Caption(T("Categories"))
                         .Position("2.5")

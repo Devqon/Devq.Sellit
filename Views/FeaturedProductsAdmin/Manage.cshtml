@@ -1,0 +1,7 @@
+﻿@Model.Date.ToString("dd-MM-yyyy")
+
+@foreach (var shape in Model.Shapes) {
+    <div>
+        @Display(shape)
+    </div>
+}

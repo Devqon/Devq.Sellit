@@ -1,0 +1,19 @@
+﻿@model Devq.Sellit.Models.FeaturedProductsSettingsPart
+
+<fieldset>
+    <legend>@T("Featured Products")</legend>
+
+    <div>
+        <label for="@Html.FieldIdFor(m => m.NumberOfFeaturedProducts)">@T("Number of featured products")</label>
+        @Html.TextBoxFor(m => m.NumberOfFeaturedProducts, new { @class = "text small", type = "number" })
+        @Html.ValidationMessage("NumberOfFeaturedProducts", "*")
+        <span class="hint">@T("Number of featured products to display in the site.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.TimeLimit)">@T("Limit of the featured products")</label>
+        @Html.TextBoxFor(m => m.TimeLimit, new { @class = "text", type = "time" })
+        @Html.ValidationMessage("TimeLimit", "*")
+        <span class="hint">@T("Limit of the featured products.")</span>
+    </div>
+
+</fieldset>

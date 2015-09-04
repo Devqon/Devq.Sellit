@@ -1,0 +1,13 @@
+﻿@using Devq.Bids.Models
+
+@{
+    BidPart bidPart = Model.BidPart;
+    string payUrl = "";
+    string title = "number";
+}
+<br />
+
+@T("You are the winner of {0}", title) <br />
+@T("Bid: {0}", bidPart.BidPrice.ToString("C")) <br />
+
+@T("<a href=\"{0}\">Checkout the bid</a> ", payUrl)
