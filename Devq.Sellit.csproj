@@ -109,13 +109,20 @@
       <Project>{e649ea64-d213-461b-87f7-d67035801443}</Project>
       <Name>Orchard.Taxonomies</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Parts\PriceChoice.cshtml" />
-    <Content Include="Placement.info" />
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Parts\TermPart.Children.cshtml" />
     <Content Include="Views\DefinitionTemplates\ExtraTermPartSettings.cshtml" />
     <Content Include="Views\Parts\LevelTermsWidget.cshtml" />
@@ -150,6 +157,11 @@
     <Content Include="Views\EditorTemplates\Parts.FeaturedProducts.SiteSettings.cshtml" />
     <Content Include="Views\Parts\FeaturedProduct.cshtml" />
     <Content Include="Views\Template.FeaturedProductsWinner.Notification.cshtml" />
+    <Content Include="Views\FeaturedProducts\Pay.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\FeaturedProductsWidget.cshtml" />
+    <Content Include="Views\Parts.FeaturedProduct.Activate.SummaryAdmin.cshtml" />
+    <Content Include="Views\Parts\ExtendedProfile.Items.cshtml" />
+    <Content Include="Views\Product.SaveButton.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,7 +186,6 @@
     <Compile Include="Drivers\ProductPartDriver.cs" />
     <Compile Include="Drivers\TermPartDriver.cs" />
     <Compile Include="Drivers\VehiclePartDriver.cs" />
-    <Compile Include="Events\ProductTypeEditorEvents.cs" />
     <Compile Include="FeaturedProductMigrations.cs" />
     <Compile Include="FeaturedProductsAdminMenu.cs" />
     <Compile Include="Handlers\FeaturedProductsTaskHandler.cs" />
@@ -186,6 +197,7 @@
     <Compile Include="Handlers\ProductPartHandler.cs" />
     <Compile Include="Handlers\FeaturedProductsSettingsPartHandler.cs" />
     <Compile Include="Handlers\ProductSettingsPartHandler.cs" />
+    <Compile Include="Handlers\WorkflowProductHandler.cs" />
     <Compile Include="Helpers\DateTimeJavascript.cs" />
     <Compile Include="Helpers\ProductMigrationExtensions.cs" />
     <Compile Include="Migrations.cs" />
@@ -205,6 +217,7 @@
     <Compile Include="Permissions.cs" />
     <Compile Include="ProductExtensionsMigrations.cs" />
     <Compile Include="ProductPartFilter.cs" />
+    <Compile Include="FeaturedProductsRoutes.cs" />
     <Compile Include="Routes.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FeaturedProductService.cs" />
@@ -222,6 +235,7 @@
     <Compile Include="ViewModels\LevelTermsWidgetViewEditModel.cs" />
     <Compile Include="ViewModels\SelectCategoryViewModel.cs" />
     <Compile Include="ViewModels\CategoryAdminIndexViewModel.cs" />
+    <Compile Include="Workflow\ProductPublishedActivity.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

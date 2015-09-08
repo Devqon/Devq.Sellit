@@ -1,0 +1,151 @@
+﻿@model Devq.Sellit.Controllers.FeaturedProductsPayViewModel
+
+@{
+    
+}
+
+@using (Script.Head()) { 
+
+    <style type="text/css">
+        label {
+            text-align: left;
+        }
+
+        button.iDEALeasy {
+            background-color: #FFFFFF;
+        }
+
+        .div-stap {
+            margin-bottom: 20px;
+        }
+
+            .div-stap form {
+                margin-top: 10px;
+            }
+
+        .stappen {
+            font-weight: 600;
+            color: #ff6a08;
+        }
+
+        #selectdiv {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+            #selectdiv .search-input {
+                width: 250px;
+            }
+    </style>
+}
+
+<h2>Betaling dag topper</h2>
+<p>U heeft geboden op <span class="stappen">dagtopper @Model.FeaturedProduct.Number</span> en u heeft de veiling met <span class="stappen">euro @Model.Amount</span> gewonnen.</p>
+<div class="div-stap">
+    <span class="stappen">Stap 1: </span> Kies eerst een van uw advertentie(s):
+    <div id="selectdiv">
+        <p class="search-input">
+            <label class="select">
+                @Html.DropDownList("AdvertisementId", Model.Products, "-- Kies een advertentie --", new { id = "select-advertisement" })
+            </label>
+        </p>
+    </div>
+</div>
+<div class="div-stap" id="divstap2">
+    <!-- CODE_START -->
+    <span class="stappen">Stap 2: </span> Via onderstande link kunt u betalen:
+    <script type="text/javascript">
+
+        var Amount = "@Model.Amount";
+        Amount = Amount.replace(",", ".");
+        var PSPID = "003014603";
+        var AM;
+
+        if (isNaN(Amount)) {
+            alert("Amount not a number: " + Amount + " !");
+            AM = ""
+        }
+        else {
+            AM = Math.round(parseFloat(Amount) * 100);
+        }
+
+        var orderID = "1";
+        mydate = new Date();
+        tv = mydate.getYear() % 10;
+        orderID = orderID + tv;
+        tv = (mydate.getMonth() * 31) + mydate.getDate();
+        orderID = orderID + ((tv < 10) ? '0' : '') + ((tv < 100) ? '0' : '') + tv;
+        tv = (mydate.getHours() * 3600) + (mydate.getMinutes() * 60) + mydate.getSeconds();
+        orderID = orderID + ((tv < 10) ? '0' : '') + ((tv < 100) ? '0' : '') + ((tv < 1000) ? '0' : '') + ((tv < 10000) ? '0' : '') + tv;
+        tvplus = Math.round(Math.random() * 9);
+    </script>
+
+
+    <form method="post" action="https://internetkassa.abnamro.nl/ncol/prod/orderstandard.asp" id="form1" name="form1" target="_blank">
+        <script type="text/javascript">
+            document.write("<input type=\"hidden\" NAME=\"PSPID\" value=\"" + PSPID + "\" />");
+            document.write("<input type=\"hidden\" NAME=\"orderID\" value=\"" + (orderID + ((tvplus + 1) % 10)) + "\" />");
+            document.write("<input type=\"hidden\" NAME=\"amount\" value=\"" + AM + "\" />");
+            document.write("<input type=\"hidden\" NAME=\"return\" value=\"" + "www.verkoophetsnel.nl" + "\" />");
+
+        </script>
+        <input type="hidden" name="currency" value="EUR" />
+        <input type="hidden" name="language" value="NL_NL" />
+        <input type="hidden" name="PM" value="iDEAL" />
+        <button class="iDEALeasy" type="submit" name="submit1" value="submit">
+            Betalen met<br />
+            <img src="https://internetkassa.abnamro.nl/images/iDEAL_easy.gif" alt="iDEAL" />
+        </button>
+    </form>
+    <!-- CODE_END -->
+</div>
+<div class="div-stap" id="divstap3">
+    <span class="stappen">Stap 3: </span> Houd uw status ba betaling:
+    <div id="status">
+        @*@Html.Action("StatusOverzicht", "Dagtoppers")*@
+    </div>
+</div>
+
+@using (Script.Foot()) { 
+
+    <script>
+        $('#divstap3').hide();
+        $(function () {
+            $('#form1').click(function () {
+                $('#divstap3').show();
+            });
+        });
+
+        var selectAdvertisement = jQuery('#select-advertisement');
+        var select = this.value;
+        selectAdvertisement.change(function () {
+            if ($(this).val() != '-- Kies een advertentie --') {
+                $('#divstap2').show();
+            }
+            else $('#divstap2').hide(); // hide div if value is not "-- Kies een advertentie --"
+        });
+
+        $(function () {
+            function reloadStatus() {
+                //$("#status").load("@Url.Action("StatusOverzicht", "Dagtoppers")");
+            }
+
+            setInterval(reloadStatus, 10000);
+
+            $(".iDEALeasy").attr("disabled", "disabled");
+
+            $("#select-advertisement").change(function () {
+                var id = $(this).val();
+                var url = "@Url.Action("SetAdvertisement")";
+
+                $.post(url, { id: id, bidId: "@Model.FeaturedProduct.Id" }, function (result) {
+                    if (result == "success")
+                        $(".iDEALeasy").removeAttr("disabled");
+                    else
+                        $(".iDEALeasy").attr("disabled", "disabled");
+                    reloadStatus();
+                });
+            });
+        });
+    </script>
+}

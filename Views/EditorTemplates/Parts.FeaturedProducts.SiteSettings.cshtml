@@ -1,5 +1,16 @@
 ﻿@model Devq.Sellit.Models.FeaturedProductsSettingsPart
 
+@{
+    Style.Require("jQueryCalendars_Picker");
+    Style.Require("jQueryUI_Calendars_Picker");
+    Style.Require("jQueryTimeEntry");
+    Style.Require("jQueryDateTimeEditor");
+
+    Script.Require("jQueryCalendars_All").AtFoot();
+    Script.Require("jQueryCalendars_Picker_Ext").AtFoot();
+    Script.Require("jQueryTimeEntry").AtFoot();
+}
+
 <fieldset>
     <legend>@T("Featured Products")</legend>
 
@@ -10,10 +21,27 @@
         <span class="hint">@T("Number of featured products to display in the site.")</span>
     </div>
     <div>
-        <label for="@Html.FieldIdFor(m => m.TimeLimit)">@T("Limit of the featured products")</label>
-        @Html.TextBoxFor(m => m.TimeLimit, new { @class = "text", type = "time" })
+        <label class="forpicker" for="@Html.FieldIdFor(m => Model.TimeLimit)">@T("Time")</label>
+        <span class="time">@Html.TextBoxFor(m => m.TimeLimit, new { placeholder = T("Time").Text, @class = "text" })</span>
         @Html.ValidationMessage("TimeLimit", "*")
         <span class="hint">@T("Limit of the featured products.")</span>
     </div>
 
 </fieldset>
+
+@using (Script.Foot())
+{
+
+    @* Generate the localization scripts. *@
+    @Display.TimeEntryLocalization()
+
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+
+            $("#@Html.FieldIdFor(m => Model.TimeLimit)").timeEntry();
+            
+        });
+        //]]>
+    </script>
+}

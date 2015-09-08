@@ -1,0 +1,7 @@
+﻿@model Devq.Sellit.Models.FeaturedProductsWidget
+           
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.NumberOfFeaturedProducts)">@T("Number of featured products to display")</label>
+    @Html.TextBoxFor(m => m.NumberOfFeaturedProducts, new { type = "number" })
+    @Html.ValidationMessageFor(m => m.NumberOfFeaturedProducts)
+</fieldset>

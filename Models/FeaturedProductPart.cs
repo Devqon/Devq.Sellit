@@ -10,7 +10,13 @@ using Orchard.Security;
 namespace Devq.Sellit.Models
 {
     public class FeaturedProductPart : ContentPart<FeaturedProductPartRecord>, ITitleAspect {
-        internal LazyField<IContent> _productField = new LazyField<IContent>(); 
+        internal LazyField<IContent> _productField = new LazyField<IContent>();
+
+        public bool Active
+        {
+            get { return Retrieve(r => r.Active); }
+            set { Store(r => r.Active, value); }
+        }
 
         public IContent Product {
             get { return _productField.Value; }
@@ -46,6 +52,7 @@ namespace Devq.Sellit.Models
 
     public class FeaturedProductPartRecord : ContentPartRecord {
 
+        public virtual bool Active { get; set; }
         public virtual ContentItemRecord Product { get; set; }
         public virtual DateTime? Date { get; set; }
         public virtual int Number { get; set; }

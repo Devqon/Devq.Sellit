@@ -2,10 +2,14 @@
     <legend>1. Categorie</legend>
     <div id="div-chosenCategory">
         <span>@T("Selected category"):</span>
-        <b>@Model.Category</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b>@Html.ActionLink(T("Change").ToString(), "Create")</b>
-        @Html.Hidden("type", (string) Model.Category)
+        <b>@Model.CategoryName</b>
+        @if (Model.ContentItem.Id == 0) {
+            <b>@Html.ActionLink(T("Change").ToString(), "Create")</b>
+            @Html.Hidden("type", (string)Model.Category)
+        }
     </div>
 </fieldset>
+
 <div class="edit-item">
     <div class="edit-item-primary">
         @if (Model.Content != null)

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Devq.Bids;
 using Devq.Sellit.Models;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
@@ -16,13 +18,27 @@ namespace Devq.Sellit.Drivers
         protected override DriverResult Display(FeaturedProductsWidget part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_FeaturedProductsWidget", () => {
 
-                var list = shapeHelper.List();
-                list.AddRange(part
+                var products = part
                     .FeaturedProducts
-                    .Select(p => _contentManager.BuildDisplay(p.Product, "Summary")));
+                    .ToList();
 
-                return shapeHelper.Parts_FeaturedProductsWidget(List: list);
+                var dictionary = products.ToDictionary(p => p.Number, p => _contentManager.BuildDisplay(p.Product, "Summary"));
+
+                return shapeHelper.Parts_FeaturedProductsWidget(Products: dictionary, Amount: part.NumberOfFeaturedProducts);
             });
+        }
+
+        protected override DriverResult Editor(FeaturedProductsWidget part, dynamic shapeHelper) {
+            return ContentShape("Parts_FeaturedProductsWidget", 
+                () => shapeHelper.EditorTemplate(
+                    TemplateName: "Parts/FeaturedProductsWidget",
+                    Model: part,
+                    Prefix: Prefix));
+        }
+
+        protected override DriverResult Editor(FeaturedProductsWidget part, IUpdateModel updater, dynamic shapeHelper) {
+            updater.TryUpdateModel(part, Prefix, null, null);
+            return Editor(part, shapeHelper);
         }
     }
 }

@@ -6,17 +6,14 @@ using Orchard.ContentManagement.MetaData;
 using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.ContentManagement.MetaData.Models;
 using Orchard.ContentManagement.ViewModels;
-using Orchard.Taxonomies.Fields;
 
 namespace Devq.Sellit.Settings
 {
     public class ProductPartSettingsEvents : ContentDefinitionEditorEventsBase {
 
         private readonly IProductService _productService;
-        private readonly IContentManager _contentManager;
 
-        public ProductPartSettingsEvents(IContentManager contentManager, IProductService productService) {
-            _contentManager = contentManager;
+        public ProductPartSettingsEvents(IProductService productService) {
             _productService = productService;
         }
 
@@ -28,7 +25,6 @@ namespace Devq.Sellit.Settings
 
             var categories = _productService.GetTermCategories();
             settings.Categories = categories;
-            // TODO: werkende GetModel<Settings> Cast niet goed?
             yield return DefinitionTemplate(settings);
         }
 

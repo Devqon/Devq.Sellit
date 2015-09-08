@@ -10,10 +10,10 @@ namespace Devq.Sellit.Models
         internal LazyField<IEnumerable<IContent>> _levelTermsField = new LazyField<IEnumerable<IContent>>();
 
         [Required]
-        public string ForTaxonomy
+        public string Taxonomy
         {
-            get { return Retrieve(r => r.ForTaxonomy); }
-            set { Store(r => r.ForTaxonomy, value); }
+            get { return Retrieve(r => r.Taxonomy); }
+            set { Store(r => r.Taxonomy, value); }
         }
 
         public IEnumerable<IContent> LevelTerms {

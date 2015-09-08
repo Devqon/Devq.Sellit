@@ -120,5 +120,20 @@ namespace Devq.Sellit
 
             return 4;
         }
+
+        public int UpdateFrom4() {
+
+            // Level terms widget
+            ContentDefinitionManager.AlterTypeDefinition("LevelTermsWidget", type => type
+
+                .Creatable()
+
+                .WithPart(typeof(LevelTermsWidgetPart).Name)
+                .WithPart("WidgetPart")
+                .WithPart("CommonPart")
+                .WithSetting("Stereotype", "Widget"));
+
+            return 5;
+        }
     }
 }

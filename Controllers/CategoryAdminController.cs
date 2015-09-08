@@ -73,8 +73,7 @@ namespace Devq.Sellit.Controllers
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePost(CreateProductTypeViewModel viewModel) {
 
-            if (!_orchardServices.Authorizer.Authorize(Permissions.ManageProductTypes))
-            {
+            if (!_orchardServices.Authorizer.Authorize(Permissions.ManageProductTypes)) {
                 return new HttpUnauthorizedResult();
             }
 

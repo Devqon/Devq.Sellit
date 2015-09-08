@@ -5,6 +5,4 @@
 @using (Html.BeginFormAntiForgeryPost(null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Display(Model)
-    
-    <input type="submit" class="button primaryAction" name="submit.Create" value="@T("Create")" />
 }

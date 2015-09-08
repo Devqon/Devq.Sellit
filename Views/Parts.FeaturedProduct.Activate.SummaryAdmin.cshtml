@@ -1,0 +1,12 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Core.Contents
+@using Orchard.Utility.Extensions
+@{
+  ContentPart contentPart = Model.ContentPart;
+    var action = (bool) Model.Active ? "Inactivate" : "Activate";
+    var text = (bool) Model.Active ? T("Inactivate") : T("Activate");
+}
+@if (Authorizer.Authorize(Permissions.EditContent, contentPart)) {
+    <a href="@Url.Action(action, "FeaturedProductsAdmin", new { id = Model.ContentItem.Id, returnUrl = Request.ToUrlString(), Area = "Devq.Sellit" })" itemprop="UnsafeUrl">@text</a>
+    @T(" | ")
+}

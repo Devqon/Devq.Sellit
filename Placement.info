@@ -1,15 +1,24 @@
 ﻿<Placement>
   <Match DisplayType="Detail">
-    <Place Parts_TermPart_Children="Content:after" />
+    <Place Parts_TermPart_Children="Content:5" />
   </Match>
   
   <Place Parts_LevelTermsWidget="Content:1" />
   <Place Parts_LevelTermsWidget_Edit="Content:7" />
   <Place Parts_FeaturedProductsWidget="Content:1" />
+  <Place Parts_FeaturedProductsWidget_Edit="Content:7" />
+
+  <Match ContentType="CategoryTerm">
+    <Place Parts_Common_Metadata="-" />
+    <Match DisplayType="Summary">
+      <Place Parts_TermPart="-"/>
+    </Match>
+    <Match DisplayType="Detail">
+      <Place Parts_TermPart="Content:after" />
+    </Match>
+  </Match>
   
   <Match ContentType="Product">
-    <!-- Use custom save buttons -->
-    <Place Content_SaveButton="-"/>
     <!-- Disable category editing -->
     <Place Fields_TaxonomyField_Edit-Category="-"/>
 
@@ -22,20 +31,25 @@
   <!-- Featured products -->
   <Place Parts_FeaturedProduct="Content:3" />
   <Match ContentType="FeaturedProduct">
+    <Place Parts_Common_Metadata="-" />
     <Match DisplayType="Detail">
-      <Place Parts_BidForm="Content:after" />
-      <Place Parts_ListOfBids="Content:after" />
+      <Place Parts_BidForm="Content:15" />
+      <Place Parts_ListOfBids="Content:16" />
     </Match>
     <Match DisplayType="SummaryAdmin">
       <Place Parts_ListOfBids="Content:after" />
+      <Place Parts_FeaturedProduct_Activate_SummaryAdmin="Actions:5" />
     </Match>
   </Match>
 
   <!-- Extended profile -->
   <Place Parts_ExtendedProfile_Edit="Content:5" />
   <Place Parts_ExtendedProfile="Content:5" />
+  <Place Parts_ExtendedProfile_Items="Content:after" />
   
   <!-- Product extensions -->
   <Place Parts_Vehicle_Edit="Content:after"/>
-  <Place Parts_Vehicle="Content:5" />
+  <Match DisplayType="Detail">
+    <Place Parts_Vehicle="Content:5" />
+  </Match>
 </Placement>

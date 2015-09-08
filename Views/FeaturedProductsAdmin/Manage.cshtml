@@ -1,7 +1,13 @@
 ﻿@Model.Date.ToString("dd-MM-yyyy")
 
-@foreach (var shape in Model.Shapes) {
-    <div>
-        @Display(shape)
-    </div>
+<h1>@Html.ActionLink(T("Checkout the biddings").Text, "Index", "FeaturedProducts", new { area = "Devq.Sellit" }, null)</h1>
+
+@using (Html.BeginFormAntiForgeryPost()) {
+
+    foreach (var shape in Model.Shapes) {
+        <div>
+            @Display(shape)
+        </div>
+    }
+
 }

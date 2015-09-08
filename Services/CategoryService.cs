@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Orchard.ContentManagement;
-using Orchard.ContentManagement.MetaData.Models;
 using Orchard.ContentManagement.Records;
 using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
@@ -44,12 +45,47 @@ namespace Devq.Sellit.Services {
             var term = _taxonomyService.GetTerm(termId);
 
             return GetDirectChildren(term);
-        } 
+        }
 
         public IEnumerable<TermPart> GetDirectChildren(TermPart term) {
             var directChildren = GetContainables(term.Record.ContentItemRecord);
 
             return directChildren.List();
+        }
+
+        public IContentQuery<TermsPart, TermsPartRecord> GetDirectContentItemsQuery(TermPart term, string fieldName = null)
+        {
+            var query = _contentManager
+                .Query<TermsPart, TermsPartRecord>();
+
+            if (String.IsNullOrWhiteSpace(fieldName))
+            {
+                query = query.Where(
+                    tpr => tpr.Terms.Any(tr =>
+                        tr.TermRecord.Id == term.Id));
+            }
+            else
+            {
+                query = query.Where(
+                    tpr => tpr.Terms.Any(tr =>
+                        tr.Field == fieldName
+                         && (tr.TermRecord.Id == term.Id)));
+            }
+
+            return query;
+        }
+
+        public long GetDirectContentItemsCount(TermPart term, string fieldName = null)
+        {
+            return GetDirectContentItemsQuery(term, fieldName).Count();
+        }
+
+        public IEnumerable<IContent> GetDirectContentItems(TermPart term, int skip = 0, int count = 0, string fieldName = null)
+        {
+            return GetDirectContentItemsQuery(term, fieldName)
+                .Join<CommonPartRecord>()
+                .OrderByDescending(x => x.CreatedUtc)
+                .Slice(skip, count);
         }
 
         private IContentQuery<TermPart> GetContainables(ContentItemRecord record) {

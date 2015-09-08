@@ -25,10 +25,10 @@ namespace Devq.Sellit.Handlers
             
             part._levelTermsField.Loader(prt => {
 
-                if (string.IsNullOrEmpty(part.ForTaxonomy))
+                if (string.IsNullOrEmpty(part.Taxonomy))
                     return new List<IContent>();
 
-                return _categoryService.GetTopLevelTerms(part.ForTaxonomy);
+                return _categoryService.GetTopLevelTerms(part.Taxonomy);
             });
         }
     }

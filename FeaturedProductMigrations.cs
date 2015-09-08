@@ -50,5 +50,25 @@ namespace Devq.Sellit
 
             return 3;
         }
+
+        public int UpdateFrom3() {
+
+            SchemaBuilder.AlterTable(typeof (FeaturedProductPartRecord).Name,
+                table => table
+                    .AddColumn<bool>("Active"));
+
+            return 4;
+        }
+
+        public int UpdateFrom4() {
+
+            SchemaBuilder.CreateTable(typeof (FeaturedProductsWidgetPartRecord).Name,
+                table => table
+                    .ContentPartRecord()
+
+                    .Column<int>("NumberOfFeaturedProducts"));
+
+            return 5;
+        }
     }
 }

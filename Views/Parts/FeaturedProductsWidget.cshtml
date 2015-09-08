@@ -1,1 +1,25 @@
-﻿@Display(Model.List)
+﻿@{
+    var products = (Dictionary<int, dynamic>) Model.Products;
+    var amount = (int) Model.Amount;
+}
+
+<div class="featuredproducts">
+    @for (var i = 1; i <= amount; i++)
+    {
+        <div class="featuredproduct">
+            @if (products.ContainsKey(i))
+            {
+                <h4>@i</h4>
+                @Display(products[i])
+            }
+            else
+            {
+                <div>
+                    empty!
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@Html.ActionLink(T("Your product here?").Text, "Index", "FeaturedProducts", new { area = "Devq.Sellit" }, null)

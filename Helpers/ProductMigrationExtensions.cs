@@ -35,7 +35,9 @@ namespace Devq.Sellit.Helpers
                 })
 
                 // Bids
-                .WithPart(typeof (BidsPart).Name)
+                .WithPart(typeof (BidsPart).Name, part => part
+                    .WithSetting("BidsPartSettings.DefaultBidsShown", "10")
+                    .WithSetting("BidsPartSettings.MustBeAuthenticated", "true"))
 
                 // Common
                 .WithPart("TitlePart")
@@ -111,8 +113,8 @@ namespace Devq.Sellit.Helpers
         /// <param name="type"></param>
         /// <param name="extraParts"></param>
         /// <param name="category"></param>
-        public static void CreateProductType(this IContentDefinitionManager cdm, string type, List<string> extraParts = null, string category = null)
-        {
+        public static void CreateProductType(this IContentDefinitionManager cdm, string type, List<string> extraParts = null, string category = null) {
+            
             // Create type and attach parts
             cdm.AlterTypeDefinition(type.ToSafeName(),
                 builder => builder

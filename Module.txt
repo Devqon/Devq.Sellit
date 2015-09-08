@@ -20,3 +20,7 @@ Features:
 		Description: Featured products
 		Dependencies: Devq.Sellit
 		Category: Commerce
+	Devq.ProductWorkflows:
+		Description: Workflows for products
+		Dependencies: Devq.Sellit
+		Category: Workflows

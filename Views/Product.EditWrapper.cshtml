@@ -1,17 +1,17 @@
-﻿@using Orchard.ContentManagement;
-@using Orchard.Core.Contents
+﻿    @using Devq.Sellit
+@using Orchard.ContentManagement;
 
 @{
     var contentItem = (ContentItem)Model.ContentItem;
-    var authorizedFor = AuthorizedFor(Permissions.EditOwnContent, contentItem);
+    var authorizedFor = AuthorizedFor(Permissions.AddProduct, contentItem);
     var title = contentItem.TypeDefinition.DisplayName;
-
 }
+
 @if (authorizedFor && Model.ContentItem.Id > 0)
 {
     <div class="content-control">
         <div class="manage-actions">
-            <a href="@Url.ItemEditUrl(contentItem, new { ReturnUrl = HttpContext.Current.Request.RawUrl })" class="primaryAction">
+            <a href="@Url.ItemEditUrl(contentItem, new { ReturnUrl = HttpContext.Current.Request.RawUrl })" class="primaryAction">  
                 @T("Edit {0}", title)
             </a>
         </div>

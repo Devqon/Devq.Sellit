@@ -78,14 +78,20 @@ namespace Devq.Sellit.Controllers
                 return View("ChooseCategory", model);
             }
 
-            var editor = _contentManager.BuildEditor(product).Category(type.DisplayName);
+            var editor = _contentManager.BuildEditor(product).Category(type.Name).CategoryName(type.DisplayName);
 
             return View(editor);
         }
 
         [HttpPost, ActionName("Create")]
-        [FormValueRequired("submit.Create")]
+        [FormValueRequired("submit.Save")]
         public ActionResult CreatePost(string type) {
+
+            var contentType = _contentManager.GetContentTypeDefinitions().FirstOrDefault(c => c.Name == type);
+            if (contentType == null) {
+                _orchardServices.Notifier.Error(T("Type {0} does not exist", type));
+                return RedirectToAction("Create");
+            }
 
             var product = _contentManager.New(type);
 

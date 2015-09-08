@@ -70,6 +70,8 @@ namespace Devq.Sellit.Services
             var newFeatured = _contentManager.New<FeaturedProductPart>("FeaturedProduct");
             newFeatured.Date = date;
             newFeatured.Number = number;
+            newFeatured.As<BidsPart>().BidsActive = true;
+            newFeatured.As<BidsPart>().MinimumBidPrice = 1;
             _contentManager.Create(newFeatured);
 
             return newFeatured;

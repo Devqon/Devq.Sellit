@@ -1,0 +1,10 @@
+﻿@if (Model.TotalItemCount > Model.Pager.PageSize) {
+    <h2>@T("Showing {0}-{1} of {2} items", Model.StartPosition, Model.EndPosition, Model.TotalItemCount)</h2>
+}
+else {
+    <h2>@T.Plural("{0} item", "{0} items", (int) Model.TotalItemCount)</h2>
+}
+
+@Display(Model.List)
+
+@Display(Model.Pager)

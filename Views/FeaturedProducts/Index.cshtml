@@ -5,9 +5,11 @@
 @{
     Layout.Title = T("Featured products");
     var featuredProducts = Model.FeaturedProducts;
-
+    
     Script.Require("jQuery");
     Script.Include("jquery.countdown.js", "jquery.countdown.min.js");
+
+    var perRow = 3;
 }
 
 <div>
@@ -20,9 +22,13 @@
 
 </div>
 
+<hr/>
+
 @foreach (var fp in featuredProducts)
 {
-    @Display(fp)
+    <div style="display: inline-block; width: 33%;">
+        @Display(fp)
+    </div>
 }
 
 @using (Script.Foot())

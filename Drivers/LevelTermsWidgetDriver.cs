@@ -3,6 +3,7 @@ using Devq.Sellit.Models;
 using Devq.Sellit.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
+using Orchard.Core.Title.Models;
 using Orchard.Taxonomies.Services;
 
 namespace Devq.Sellit.Drivers
@@ -21,7 +22,8 @@ namespace Devq.Sellit.Drivers
             return ContentShape("Parts_LevelTermsWidget", () => {
 
                 var list = shapeHelper.List();
-                list.AddRange(part.LevelTerms.Select(t => _contentManager.BuildDisplay(t, "Summary")));
+                var ordered = part.LevelTerms.OrderBy(l => l.As<TitlePart>().Title);
+                list.AddRange(ordered.Select(t => _contentManager.BuildDisplay(t, "Mini")));
                 
                 return shapeHelper.Parts_LevelTermsWidget(ContentItems: list);
             });
@@ -42,7 +44,7 @@ namespace Devq.Sellit.Drivers
             var viewModel = new LevelTermsWidgetViewEditModel();
 
             if (updater.TryUpdateModel(viewModel, Prefix, null, null)) {
-                part.ForTaxonomy = viewModel.Taxonomy;
+                part.Taxonomy = viewModel.Taxonomy;
             }
             return Editor(part, shapeHelper);
         }
@@ -51,7 +53,7 @@ namespace Devq.Sellit.Drivers
         {
             return new LevelTermsWidgetViewEditModel {
                 Taxonomies = _taxonomyService.GetTaxonomies(),
-                Taxonomy = part.ForTaxonomy
+                Taxonomy = part.Taxonomy
             };
         }
     }

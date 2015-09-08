@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using Devq.Sellit.Models;
 using Devq.Sellit.Services;
 using Orchard.ContentManagement;
 using Orchard.DisplayManagement;
@@ -28,7 +29,7 @@ namespace Devq.Sellit.Controllers
         public ActionResult Manage(FeaturedProductsAdminIndexViewModel model)
         {
             if (model.Date == DateTime.MinValue) {
-                model.Date = DateTime.Now;
+                model.Date = DateTime.UtcNow.AddDays(1);
             }
 
             var featuredProducts = _featuredProductService
@@ -43,6 +44,22 @@ namespace Devq.Sellit.Controllers
                 .Date(model.Date);
 
             return View(viewModel);
+        }
+
+        public ActionResult Activate(int id, string returnUrl) {
+            var featuredProduct = _contentManager.Get<FeaturedProductPart>(id);
+            if (featuredProduct.Product != null) {
+                featuredProduct.Active = true;
+            }
+
+            return Redirect(returnUrl);
+        }
+
+        public ActionResult Inactivate(int id, string returnUrl) {
+            var featuredProduct = _contentManager.Get<FeaturedProductPart>(id);
+            featuredProduct.Active = false;
+
+            return Redirect(returnUrl);
         }
     }
 
